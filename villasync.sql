@@ -6,6 +6,7 @@ create table Agente_imobiliario (
     nif int,
     salario int,
     num_emp int,
+    password varchar(20),
     PRIMARY KEY (num_emp)
 );
 
@@ -14,12 +15,13 @@ create table Cliente(
     unome varchar(20),
     nif int,
     num_cliente int,
+    password varchar(20),
     PRIMARY KEY (num_cliente)
 );
 
 create table Propriedade(
     id int,
-    localizacao varchar(20),
+    localizacao varchar(30),
     num_empregado int,
     m_quadrados int,
     n_pisos int,
@@ -55,8 +57,8 @@ create table Contrato(
 
 create table Anuncio(
     id int,
-    titulo varchar(20),
-    descricao varchar(20),
+    titulo varchar(50),
+    descricao varchar(50),
     id_contrato int,
     PRIMARY KEY (id),
     foreign key (id_contrato) references Contrato(id)
@@ -101,12 +103,12 @@ create table Oferta(
     foreign key (num_cliente) references Cliente(num_cliente)
 );
 
-INSERT INTO Agente_imobiliario (pnome, unome, nif, salario, num_emp)
-VALUES ('John', 'Doe', 123456789, 50000, 1);
+INSERT INTO Agente_imobiliario (pnome, unome, nif, salario, num_emp, password)
+VALUES ('John', 'Doe', 123456789, 50000, 1, 'agente');
 
 -- Inserting data into Cliente
-INSERT INTO Cliente (pnome, unome, nif, num_cliente)
-VALUES ('Jane', 'Doe', 987654321, 1);
+INSERT INTO Cliente (pnome, unome, nif, num_cliente, password)
+VALUES ('Jane', 'Doe', 987654321, 1, 'cliente');
 
 -- Inserting data into Propriedade
 INSERT INTO Propriedade (id, localizacao, num_empregado, m_quadrados, n_pisos, n_quartos, n_wc, cert_energ, garagem)

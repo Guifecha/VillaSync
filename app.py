@@ -8,7 +8,34 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/propriedades')
+def propriedades():
+    return render_template('propriedades.html')
 
+@app.route('/contratos')
+def contratos():
+    return render_template('contratos.html')
+
+@app.route('/clientes')
+def clientes():
+    return render_template('clientes.html')
+
+@app.route('/anuncios')
+def anuncios():
+    return render_template('anuncios.html')
+
+@app.route('/agentes')  
+def agentes():
+    return render_template('agentes.html')
+
+@app.route('/visitas')
+def visitas():
+    return render_template('visitas.html')
+
+@app.route('/ofertas')
+def ofertas():
+    return render_template('ofertas.html')
+'''
 @app.route('/test_connection', methods=['POST'])
 def test_connection():
     # Get form data
@@ -39,11 +66,11 @@ def print_hello_table():
     # Fetch the hello table
     with create_connection(server_addr, db_name) as conn:   #user,pass
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Cliente;")
+        cursor.execute("SELECT * FROM Anuncio;")
         messages = list(cursor)
 
     return render_template_string("""
-        <h1>Cliente Table</h1>
+        <h1>Anuncio Table</h1>
         {% for x in messages %}
         <p>{{ x }}</p>
         {% endfor %}
@@ -54,7 +81,7 @@ def create_connection(server_addr, db_name):
     connection_string = f"DRIVER={{SQL Server}};SERVER={server_addr};DATABASE={db_name}"
     conn = pyodbc.connect(connection_string)# user=user, password=password)
     return conn
-
+'''
 
 if __name__ == '__main__':
     app.run(debug=True)
