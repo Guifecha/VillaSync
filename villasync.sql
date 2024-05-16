@@ -6,7 +6,6 @@ create table Agente_imobiliario (
     nif int,
     salario int,
     num_emp int,
-    password varchar(20),
     PRIMARY KEY (num_emp)
 );
 
@@ -15,7 +14,6 @@ create table Cliente(
     unome varchar(20),
     nif int,
     num_cliente int,
-    password varchar(20),
     PRIMARY KEY (num_cliente)
 );
 

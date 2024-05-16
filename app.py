@@ -1,5 +1,8 @@
-import pyodbc
-from flask import Flask, render_template, request, render_template_string
+from flask import Flask, make_response, render_template, request, render_template_string
+
+from persistence import anuncios
+from persistence.anuncios import AnuncioDetalhes
+
 
 app = Flask(__name__)
 
@@ -8,21 +11,62 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/anuncios', methods=['GET'])
+def get_anuncios():
+    all_anuncios = anuncios.list_all()
+    return render_template('anuncios.html', all_anuncios=all_anuncios)
+
+
+
+@app.route('/anuncios', methods=['POST'])
+def criar_anuncio():
+    novo = AnuncioDetalhes(**request.form)
+    anuncios.create(novo)
+    
+    response = make_response(render_template_string(f"Anuncio {novo.titulo} criado com sucesso!"))
+    response.headers['Location'] = '/anuncios'
+    response.status_code = 303  
+    return response
+
+
+
+'''
+@app.route('/anuncios', methods=['GET', 'POST'])
+def novo_anuncio():
+    )
+
+
+
+
+
+
+
+
+
+
 @app.route('/propriedades')
 def propriedades():
-    return render_template('propriedades.html')
+    conn = pyodbc.connect(connection_string)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Propriedade;")
+    propriedades = list(cursor)
+    conn.close()
+    return render_template('propriedades.html', propriedades=propriedades)
 
 @app.route('/contratos')
 def contratos():
-    return render_template('contratos.html')
+    conn = pyodbc.connect(connection_string)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Contrato;")
+    contratos = list(cursor)
+    conn.close()
+    return render_template('contratos.html', contratos=contratos)
+
 
 @app.route('/clientes')
 def clientes():
     return render_template('clientes.html')
 
-@app.route('/anuncios')
-def anuncios():
-    return render_template('anuncios.html')
 
 @app.route('/agentes')  
 def agentes():
@@ -35,7 +79,10 @@ def visitas():
 @app.route('/ofertas')
 def ofertas():
     return render_template('ofertas.html')
-'''
+
+
+
+
 @app.route('/test_connection', methods=['POST'])
 def test_connection():
     # Get form data
@@ -48,7 +95,7 @@ def test_connection():
         with create_connection(server_addr, db_name) as conn:  #user, password
             message = "Connection successful!"
             colour = "green"
-    except pyodbc.Error as e:
+    except pypyodbc.Error as e:
         message = f"Connection failed: {str(e)}"
         colour = "red"
 
@@ -79,7 +126,7 @@ def print_hello_table():
 
 def create_connection(server_addr, db_name):
     connection_string = f"DRIVER={{SQL Server}};SERVER={server_addr};DATABASE={db_name}"
-    conn = pyodbc.connect(connection_string)# user=user, password=password)
+    conn = pypyodbc.connect(connection_string)# user=user, password=password)
     return conn
 '''
 

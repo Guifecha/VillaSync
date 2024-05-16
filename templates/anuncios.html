@@ -17,5 +17,40 @@
          <a class="nav-link" href="/clientes">Clientes</a>
 
       </nav>
+
+
+      <div class="container">
+         <div class="show">
+            <h1>Anuncios</h1>
+            <p>Lista de Anúncios: </p>
+            {{ all_anuncios }}
+         </div>
+
+         <div class="add">
+            <h2>Adicionar Anúncio</h2>
+            <form action="/anuncios" method="post">
+               <label for="titulo">Título:</label><br>
+               <input type="text" id="titulo" name="titulo"
+                     value="{% if id is defined%}{{ anuncio.titulo }}{% endif %}"><br>
+                            
+               <label for="descricao">Descrição:</label><br>
+               <input type="text" id="descricao" name="descricao"
+                     value="{% if id is defined%}{{anuncio.descricao}}{% endif %}" ><br>
+               
+               <label for="preco">Preço:</label><br>
+               <input type="text" id="preco" name="preco"
+                     value="{% if id is defined%}{{anuncio.preco}}{% endif %}" ><br>
+
+               <label for="agente">Agente:</label><br>
+               <input type="text" id="agente" name="agente"
+                     value="{% if id is defined%}{{anuncio.agente}}{% endif %}" ><br>
+               
+               <button class="btn">Save</button>
+               {% if id is defined %}
+                  <button class="btn" hx-get="/anuncios/{{id}}">Cancel</button>
+               {% endif %}
+               </form>
+         </div>
+      </div>
    </body>
 </html>

@@ -1,6 +1,6 @@
 body {
    padding-top: 55px;
-
+}
 #topnav {
    width: 100%;
 
@@ -36,8 +36,18 @@ body {
    font-weight: bold;
 }
 
-#about {
-   position: absolute;
-   top: 0;
-   right: 0;
+.container {
+   display: flex;  /* Use Flexbox */
+   justify-content: space-between;  /* Space the .show and .add elements evenly */
+   width: 100%;
+   margin: 0 auto;
+}
+
+.show {
+   width: 55%;  /* Set a width to prevent the .show and .add elements from taking up the full width of the .container */
+}
+
+.add {
+   width: 40%;  /* Set a width to prevent the .show and .add elements from taking up the full width of the .container */
+   margin-right: 0;  /* Remove the right margin */
 }
