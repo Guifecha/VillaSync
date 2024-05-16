@@ -1,3 +1,4 @@
+import random
 from typing import NamedTuple
 from persistence.session import create_connection
 
@@ -31,13 +32,14 @@ def list_all() -> list[AnuncioMain]:
 """
         
 def create(anuncio: AnuncioDetalhes):
+    id_int = random.randint(1000, 9999)
     with create_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("""
                        insert into anuncio(id,titulo, descricao, id_contrato)
                        values(?,?,?,?)
                        """,
-                        id,
+                        id_int,
                         anuncio.titulo,
                         anuncio.descricao,
                         anuncio.id_contrato

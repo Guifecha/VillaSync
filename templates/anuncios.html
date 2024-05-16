@@ -22,9 +22,25 @@
       <div class="container">
          <div class="show">
             <h1>Anuncios</h1>
-            <p>Lista de Anúncios: </p>
-            {{ all_anuncios }}
+            {% for anuncio in all_anuncios %}
+            <div class="anuncio" hx-swap="innerHTML" hx-target="#content">
+               <div class="anuncio_detalhes" hx-get="/anuncios/{{anuncio.id}}">
+                  <div class="titulo">{{ anuncio.titulo }}</div>
+                  <div class="descricao">{{ anuncio.descricao }}</div>
+                  <div class="contrato">{{ anuncio.id_contrato }}</div>
+            </div>
+            <div>
+               <button class="edit-button" hx-get="/anuncios/{{ id }}?edit=true">Edit</button>
+               <button class="delete-button" hx-delete="/anuncios/{{ id }}" hx-confirm="Tens a certeza?">Delete</button>
+            </div>
+            </div>
+            {% endfor %}
          </div>
+            
+         
+
+
+
 
          <div class="add">
             <h2>Adicionar Anúncio</h2>
@@ -36,14 +52,12 @@
                <label for="descricao">Descrição:</label><br>
                <input type="text" id="descricao" name="descricao"
                      value="{% if id is defined%}{{anuncio.descricao}}{% endif %}" ><br>
-               
-               <label for="preco">Preço:</label><br>
-               <input type="text" id="preco" name="preco"
-                     value="{% if id is defined%}{{anuncio.preco}}{% endif %}" ><br>
 
-               <label for="agente">Agente:</label><br>
-               <input type="text" id="agente" name="agente"
-                     value="{% if id is defined%}{{anuncio.agente}}{% endif %}" ><br>
+               <label for="contrato">Contrato:</label><br>
+               <input type="text" id="id_contrato" name="id_contrato"
+                     value="{% if id is defined%}{{anuncio.id_contrato}}{% endif %}" ><br>
+               
+                  
                
                <button class="btn">Save</button>
                {% if id is defined %}
@@ -51,6 +65,8 @@
                {% endif %}
                </form>
          </div>
+      
+      
       </div>
    </body>
 </html>

@@ -28,22 +28,26 @@ def criar_anuncio():
     response.status_code = 303  
     return response
 
+@app.route('/anuncios/<id>', methods=['GET'])
+def get_anuncio(id):
+    id, detalhes = anuncios.read(id)
+    return render_template('anuncio.html', id=id, detalhes=detalhes)
+
+@app.route('/anuncios/<id>', methods=['DELETE'])
+def delete_anuncio(id):
+    try:
+        anuncios.delete(id)
+        response = make_response(render_template_string(f"Anuncio {id} apagado com sucesso!"))
+        response.headers['Location'] = '/anuncios'
+        return response
+    
+    except Exception as e:
+        r = make_response(render_template_string(f"Erro ao apagar anuncio"))
+        return r
+
 
 
 '''
-@app.route('/anuncios', methods=['GET', 'POST'])
-def novo_anuncio():
-    )
-
-
-
-
-
-
-
-
-
-
 @app.route('/propriedades')
 def propriedades():
     conn = pyodbc.connect(connection_string)
